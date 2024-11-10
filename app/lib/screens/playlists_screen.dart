@@ -14,9 +14,7 @@ class _PlaylistsScreenState extends State<PlaylistsScreen> {
   @override
   void initState() {
     super.initState();
-    final playlistController =
-        Provider.of<PlaylistController>(context, listen: false);
-    playlistController.loadPlaylists();
+    Provider.of<PlaylistController>(context, listen: false).loadPlaylists();
   }
 
   @override
@@ -24,38 +22,40 @@ class _PlaylistsScreenState extends State<PlaylistsScreen> {
     final playlistController = Provider.of<PlaylistController>(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text('Playlists')),
-      body: Column(
-        children: [
-          Expanded(
-            child: playlistController.playlists.isEmpty
-                ? Center(child: CircularProgressIndicator())
-                : ListView.builder(
-                    itemCount: playlistController.playlists.length,
-                    itemBuilder: (context, index) {
-                      final playlist = playlistController.playlists[index];
-                      return PlaylistCard(
-                        playlist: playlist,
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  PlaylistScreen(playlistId: playlist.id),
-                            ),
-                          );
-                        },
-                        onDelete: () {
-                          // Excluir playlist do banco
-                          playlistController.deletePlaylist(playlist.id);
-                        },
-                      );
-                    },
-                  ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
+      appBar: AppBar(
+        title: Text('Playlists'),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Expanded(
+              child: playlistController.playlists.isEmpty
+                  ? Center(child: CircularProgressIndicator())
+                  : ListView.builder(
+                      itemCount: playlistController.playlists.length,
+                      itemBuilder: (context, index) {
+                        final playlist = playlistController.playlists[index];
+                        return PlaylistCard(
+                          playlist: playlist,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    PlaylistScreen(playlistId: playlist.id),
+                              ),
+                            );
+                          },
+                          onDelete: () {
+                            playlistController.deletePlaylist(playlist.id);
+                          },
+                        );
+                      },
+                    ),
+            ),
+            ElevatedButton(
               onPressed: () async {
                 final nome = await showDialog<String>(
                   context: context,
@@ -66,7 +66,8 @@ class _PlaylistsScreenState extends State<PlaylistsScreen> {
                       content: TextField(
                         controller: controller,
                         decoration: InputDecoration(
-                            hintText: 'Digite o nome da playlist'),
+                          hintText: 'Digite o nome da playlist',
+                        ),
                       ),
                       actions: [
                         TextButton(
@@ -86,15 +87,12 @@ class _PlaylistsScreenState extends State<PlaylistsScreen> {
                     musicas: [],
                   );
                   await playlistController.createPlaylist(playlist);
-
-                  await playlistController.loadPlaylists();
-                  setState(() {});
                 }
               },
               child: Text('Criar Playlist'),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -21,8 +21,19 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Music App',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
+          primaryColor: Color(0xFF1DB954), // Cor verde do Spotify
+          scaffoldBackgroundColor: Colors.black87, // Fundo cinza escuro
+          brightness: Brightness.dark, // Tema escuro
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: Color(0xFF1DB954), // Texto branco nos botões
+              textStyle: TextStyle(fontSize: 16), // Ajuste de tamanho de texto
+            ),
+          ),
+          textTheme: TextTheme(
+            bodyMedium: TextStyle(color: Colors.white70),
+          ),
         ),
         home: HomeScreen(),
       ),

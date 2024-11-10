@@ -16,15 +16,15 @@
       "nome": "Minha Playlist 1",
       "musicas": [
         "1",
-        "2",
-        "4"
+        "4",
+        "2"
       ],
       "id": "1"
     },
     {
       "nome": "rtes",
       "musicas": [
-        "1"
+        "2"
       ],
       "id": "229d"
     }

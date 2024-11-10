@@ -9,7 +9,14 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Music App'),
+        title: Row(
+          children: [
+            Icon(Icons.library_music, color: Colors.white),
+            SizedBox(width: 8),
+            Text('Editor de Playlists'),
+          ],
+        ),
+        centerTitle: true,
       ),
       body: Center(
         child: Column(
