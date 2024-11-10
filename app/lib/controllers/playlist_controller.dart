@@ -37,9 +37,11 @@ class PlaylistController with ChangeNotifier {
   Future<void> createPlaylist(Playlist playlist) async {
     try {
       await _playlistService.createPlaylist(playlist);
-      // Recarregar as playlists após a criação
+      // Adiciona a playlist à lista local
       _playlists.add(playlist);
-      notifyListeners();
+      // Recarregar playlists após a criação para garantir que a lista local está atualizada
+      await loadPlaylists();
+      notifyListeners(); // Notificar para reconstruir a UI
     } catch (e) {
       print("Erro ao criar playlist: $e");
     }
@@ -48,19 +50,12 @@ class PlaylistController with ChangeNotifier {
   // Adicionar música à playlist
   Future<void> addMusicaToPlaylist(String playlistId, String musicaId) async {
     try {
-      // Encontrar a playlist pela ID
       Playlist playlist = _playlists.firstWhere((p) => p.id == playlistId);
 
-      // Verificar se a música já está na playlist
       if (!playlist.musicas.contains(musicaId)) {
-        // Adiciona o ID da música à lista de músicas da playlist
         playlist.musicas.add(musicaId);
-
-        // Atualiza a playlist no backend
         await _playlistService.updatePlaylist(playlist);
-
-        // Recarregar as playlists para refletir a mudança
-        await loadPlaylists(); // Chama novamente para garantir que as playlists estejam atualizadas
+        await loadPlaylists(); // Recarregar playlists
         notifyListeners();
       } else {
         print("A música já está na playlist.");
@@ -76,15 +71,10 @@ class PlaylistController with ChangeNotifier {
     try {
       Playlist playlist = _playlists.firstWhere((p) => p.id == playlistId);
 
-      // Verifica se a música existe na playlist antes de remover
       if (playlist.musicas.contains(musicaId)) {
         playlist.musicas.remove(musicaId);
-
-        // Atualiza a playlist no backend
         await _playlistService.updatePlaylist(playlist);
-
-        // Recarregar as playlists para refletir a mudança
-        await loadPlaylists();
+        await loadPlaylists(); // Recarregar playlists
         notifyListeners();
       } else {
         print("A música não existe na playlist.");

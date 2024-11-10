@@ -91,6 +91,10 @@ class _PlaylistsScreenState extends State<PlaylistsScreen> {
                     musicas: [],
                   );
                   await playlistController.createPlaylist(playlist);
+
+                  // Garantir que a lista de playlists foi carregada após a criação
+                  await playlistController.loadPlaylists();
+                  setState(() {});
                 }
               },
               child: Text('Criar Playlist'),
