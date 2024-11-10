@@ -18,8 +18,8 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
     super.initState();
     final playlistController =
         Provider.of<PlaylistController>(context, listen: false);
-    playlistController.loadPlaylists(); // Carregar playlists
-    playlistController.loadMusicas(); // Carregar músicas
+    playlistController.loadPlaylists();
+    playlistController.loadMusicas();
   }
 
   @override
