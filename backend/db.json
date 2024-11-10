@@ -14,16 +14,39 @@
       "id": "4",
       "nome": "qwewq",
       "link": "qweqweq"
+    },
+    {
+      "id": "5",
+      "nome": "EU AMO MADONNA",
+      "link": "LINK"
     }
   ],
   "playlists": [
     {
-      "id": "1",
       "nome": "Minha Playlist 1",
       "musicas": [
         "1",
-        "2"
-      ]
+        "2",
+        "4"
+      ],
+      "id": "1"
+    },
+    {
+      "nome": "t",
+      "musicas": [
+        "1"
+      ],
+      "id": "2224"
+    },
+    {
+      "id": "16f9",
+      "nome": "gosto de pacoca",
+      "musicas": []
+    },
+    {
+      "id": "c747",
+      "nome": "ddd",
+      "musicas": []
     }
   ]
 }

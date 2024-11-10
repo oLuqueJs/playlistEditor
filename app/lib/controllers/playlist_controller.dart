@@ -36,10 +36,10 @@ class PlaylistController with ChangeNotifier {
   // Criar uma nova playlist
   Future<void> createPlaylist(Playlist playlist) async {
     try {
-      // Cria a playlist no backend
       await _playlistService.createPlaylist(playlist);
-      // Recarrega a lista de playlists após a criação
-      await loadPlaylists();
+      // Recarregar as playlists após a criação
+      _playlists.add(playlist);
+      notifyListeners();
     } catch (e) {
       print("Erro ao criar playlist: $e");
     }
@@ -48,17 +48,23 @@ class PlaylistController with ChangeNotifier {
   // Adicionar música à playlist
   Future<void> addMusicaToPlaylist(String playlistId, String musicaId) async {
     try {
-      // Primeiro, obtemos a playlist
+      // Encontrar a playlist pela ID
       Playlist playlist = _playlists.firstWhere((p) => p.id == playlistId);
 
-      // Adiciona o ID da música à lista de músicas da playlist
-      playlist.musicas.add(musicaId);
+      // Verificar se a música já está na playlist
+      if (!playlist.musicas.contains(musicaId)) {
+        // Adiciona o ID da música à lista de músicas da playlist
+        playlist.musicas.add(musicaId);
 
-      // Atualiza a playlist no backend
-      await _playlistService.updatePlaylist(playlist);
+        // Atualiza a playlist no backend
+        await _playlistService.updatePlaylist(playlist);
 
-      // Recarrega as playlists para refletir a mudança
-      await loadPlaylists();
+        // Recarregar as playlists para refletir a mudança
+        await loadPlaylists(); // Chama novamente para garantir que as playlists estejam atualizadas
+        notifyListeners();
+      } else {
+        print("A música já está na playlist.");
+      }
     } catch (e) {
       print("Erro ao adicionar música à playlist: $e");
     }
@@ -68,17 +74,21 @@ class PlaylistController with ChangeNotifier {
   Future<void> removeMusicaFromPlaylist(
       String playlistId, String musicaId) async {
     try {
-      // Primeiramente, obtemos a playlist
       Playlist playlist = _playlists.firstWhere((p) => p.id == playlistId);
 
-      // Remove o ID da música da lista de músicas da playlist
-      playlist.musicas.remove(musicaId);
+      // Verifica se a música existe na playlist antes de remover
+      if (playlist.musicas.contains(musicaId)) {
+        playlist.musicas.remove(musicaId);
 
-      // Atualiza a playlist no backend
-      await _playlistService.updatePlaylist(playlist);
+        // Atualiza a playlist no backend
+        await _playlistService.updatePlaylist(playlist);
 
-      // Recarrega as playlists para refletir a mudança
-      await loadPlaylists();
+        // Recarregar as playlists para refletir a mudança
+        await loadPlaylists();
+        notifyListeners();
+      } else {
+        print("A música não existe na playlist.");
+      }
     } catch (e) {
       print("Erro ao remover música da playlist: $e");
     }
@@ -88,8 +98,8 @@ class PlaylistController with ChangeNotifier {
   Future<void> deletePlaylist(String playlistId) async {
     try {
       await _playlistService.deletePlaylist(playlistId);
-      // Recarregar playlists após exclusão
-      await loadPlaylists();
+      _playlists.removeWhere((playlist) => playlist.id == playlistId);
+      notifyListeners();
     } catch (e) {
       print("Erro ao deletar playlist: $e");
     }
@@ -98,5 +108,10 @@ class PlaylistController with ChangeNotifier {
   // Buscar músicas por ID
   List<Musica> getMusicasByIds(List<String> musicasIds) {
     return _musicas.where((musica) => musicasIds.contains(musica.id)).toList();
+  }
+
+  // Buscar músicas que não estão na playlist
+  List<Musica> getMusicasDisponiveis(List<String> musicasIds) {
+    return _musicas.where((musica) => !musicasIds.contains(musica.id)).toList();
   }
 }
