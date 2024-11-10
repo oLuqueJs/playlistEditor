@@ -14,7 +14,6 @@ class _PlaylistsScreenState extends State<PlaylistsScreen> {
   @override
   void initState() {
     super.initState();
-    // Carregar playlists assim que a tela for carregada
     final playlistController =
         Provider.of<PlaylistController>(context, listen: false);
     playlistController.loadPlaylists();
@@ -28,7 +27,6 @@ class _PlaylistsScreenState extends State<PlaylistsScreen> {
       appBar: AppBar(title: Text('Playlists')),
       body: Column(
         children: [
-          // Lista de playlists
           Expanded(
             child: playlistController.playlists.isEmpty
                 ? Center(child: CircularProgressIndicator())
@@ -39,7 +37,6 @@ class _PlaylistsScreenState extends State<PlaylistsScreen> {
                       return PlaylistCard(
                         playlist: playlist,
                         onTap: () {
-                          // Navegar para a tela da playlist
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -56,7 +53,6 @@ class _PlaylistsScreenState extends State<PlaylistsScreen> {
                     },
                   ),
           ),
-          // Botão para criar nova playlist
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
@@ -84,7 +80,6 @@ class _PlaylistsScreenState extends State<PlaylistsScreen> {
                   },
                 );
                 if (nome != null && nome.isNotEmpty) {
-                  // Criar uma nova playlist com ID contador
                   final playlist = Playlist(
                     id: (playlistController.playlists.length + 1).toString(),
                     nome: nome,
@@ -92,7 +87,6 @@ class _PlaylistsScreenState extends State<PlaylistsScreen> {
                   );
                   await playlistController.createPlaylist(playlist);
 
-                  // Garantir que a lista de playlists foi carregada após a criação
                   await playlistController.loadPlaylists();
                   setState(() {});
                 }

@@ -11,7 +11,6 @@ class PlaylistController with ChangeNotifier {
   List<Playlist> get playlists => _playlists;
   List<Musica> get musicas => _musicas;
 
-  // Carregar todas as playlists
   Future<void> loadPlaylists() async {
     try {
       _playlists = await _playlistService.getPlaylists();
@@ -21,7 +20,6 @@ class PlaylistController with ChangeNotifier {
     }
   }
 
-  // Carregar todas as músicas
   Future<List<Musica>> loadMusicas() async {
     try {
       if (_musicas.isEmpty) {
@@ -37,11 +35,9 @@ class PlaylistController with ChangeNotifier {
   Future<void> createPlaylist(Playlist playlist) async {
     try {
       await _playlistService.createPlaylist(playlist);
-      // Adiciona a playlist à lista local
       _playlists.add(playlist);
-      // Recarregar playlists após a criação para garantir que a lista local está atualizada
       await loadPlaylists();
-      notifyListeners(); // Notificar para reconstruir a UI
+      notifyListeners();
     } catch (e) {
       print("Erro ao criar playlist: $e");
     }
@@ -55,7 +51,7 @@ class PlaylistController with ChangeNotifier {
       if (!playlist.musicas.contains(musicaId)) {
         playlist.musicas.add(musicaId);
         await _playlistService.updatePlaylist(playlist);
-        await loadPlaylists(); // Recarregar playlists
+        await loadPlaylists();
         notifyListeners();
       } else {
         print("A música já está na playlist.");
@@ -74,7 +70,7 @@ class PlaylistController with ChangeNotifier {
       if (playlist.musicas.contains(musicaId)) {
         playlist.musicas.remove(musicaId);
         await _playlistService.updatePlaylist(playlist);
-        await loadPlaylists(); // Recarregar playlists
+        await loadPlaylists();
         notifyListeners();
       } else {
         print("A música não existe na playlist.");

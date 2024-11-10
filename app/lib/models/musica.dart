@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Musica {
-  final String
-      id; // Alteramos para String, já que o id pode ser tanto número quanto string
+  final String id;
   final String nome;
   final String link;
   final IconData icone;
@@ -14,11 +13,9 @@ class Musica {
     required this.icone,
   });
 
-  // Modificando o fromJson para lidar com id como String
   factory Musica.fromJson(Map<String, dynamic> json) {
     return Musica(
-      id: json['id']
-          .toString(), // Garantimos que id seja convertido para String
+      id: json['id'].toString(),
       nome: json['nome'],
       link: json['link'],
       icone: Icons.music_note, // Usando ícone fixo

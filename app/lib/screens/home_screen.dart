@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:app/screens/musicas_screen.dart';
-import 'package:app/screens/playlists_screen.dart'; // Importando a tela de Playlists
+import 'package:app/screens/playlists_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -13,8 +13,7 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment:
-              MainAxisAlignment.center, // Para centralizar os botões na tela
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
               onPressed: () {
@@ -25,14 +24,12 @@ class HomeScreen extends StatelessWidget {
               },
               child: const Text('Músicas'),
             ),
-            const SizedBox(height: 20), // Espaçamento entre os botões
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          PlaylistsScreen()), // Navegando para a tela de playlists
+                  MaterialPageRoute(builder: (context) => PlaylistsScreen()),
                 );
               },
               child: const Text('Playlists'),

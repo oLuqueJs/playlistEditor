@@ -4,7 +4,7 @@ import 'package:app/models/playlist.dart';
 class PlaylistCard extends StatelessWidget {
   final Playlist playlist;
   final VoidCallback onTap;
-  final VoidCallback onDelete; // Callback para deletar playlist
+  final VoidCallback onDelete;
 
   PlaylistCard({
     required this.playlist,
@@ -21,7 +21,7 @@ class PlaylistCard extends StatelessWidget {
         onTap: onTap,
         trailing: IconButton(
           icon: Icon(Icons.delete),
-          onPressed: onDelete, // Chama a função de deletar
+          onPressed: onDelete,
         ),
       ),
     );

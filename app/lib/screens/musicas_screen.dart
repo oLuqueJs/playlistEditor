@@ -16,7 +16,6 @@ class _MusicasScreenState extends State<MusicasScreen> {
   @override
   void initState() {
     super.initState();
-    // Carregar as músicas assim que a tela for inicializada
     Provider.of<MusicaController>(context, listen: false).loadMusicas();
   }
 
@@ -30,7 +29,6 @@ class _MusicasScreenState extends State<MusicasScreen> {
       ),
       body: Column(
         children: [
-          // Formulário para adicionar nova música
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
@@ -70,8 +68,6 @@ class _MusicasScreenState extends State<MusicasScreen> {
             },
             child: Text('Adicionar Música'),
           ),
-
-          // Lista de músicas
           Expanded(
             child: musicaController.musicas.isEmpty
                 ? Center(

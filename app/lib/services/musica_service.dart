@@ -3,10 +3,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class MusicaService {
-  static const String apiUrl =
-      'http://localhost:3000/musicas'; // URL do json-server
+  static const String apiUrl = 'http://localhost:3000/musicas';
 
-  // Função para buscar todas as músicas
   Future<List<Musica>> getMusicas() async {
     try {
       final response = await http.get(Uri.parse(apiUrl));
@@ -21,7 +19,6 @@ class MusicaService {
     }
   }
 
-  // Função para adicionar uma música
   Future<void> addMusica(Musica musica) async {
     try {
       final response = await http.post(
@@ -37,11 +34,9 @@ class MusicaService {
     }
   }
 
-  // Função para deletar uma música
   Future<void> deleteMusica(String id) async {
     try {
-      final response = await http
-          .delete(Uri.parse('$apiUrl/$id')); // Passando o id como String
+      final response = await http.delete(Uri.parse('$apiUrl/$id'));
 
       if (response.statusCode != 200) {
         throw Exception('Erro ao deletar música');

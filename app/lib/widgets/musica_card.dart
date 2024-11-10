@@ -3,8 +3,7 @@ import 'package:app/models/musica.dart';
 
 class MusicaCard extends StatelessWidget {
   final Musica musica;
-  final VoidCallback
-      onDelete; // Função chamada ao pressionar o ícone de deletar
+  final VoidCallback onDelete;
 
   MusicaCard({required this.musica, required this.onDelete});
 
@@ -12,12 +11,12 @@ class MusicaCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: Icon(musica.icone), // Ícone fixo
-        title: Text(musica.nome), // Nome da música
-        subtitle: Text(musica.link), // Link da música
+        leading: Icon(musica.icone),
+        title: Text(musica.nome),
+        subtitle: Text(musica.link),
         trailing: IconButton(
-          icon: Icon(Icons.delete), // Ícone de deletar
-          onPressed: onDelete, // Ação de deletar
+          icon: Icon(Icons.delete),
+          onPressed: onDelete,
         ),
       ),
     );

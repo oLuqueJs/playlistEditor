@@ -12,9 +12,8 @@ class AddMusicaDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final playlistController = Provider.of<PlaylistController>(context);
 
-    // Carregar todas as músicas
     return FutureBuilder<List<Musica>>(
-      future: playlistController.loadMusicas(), // Carregar todas as músicas
+      future: playlistController.loadMusicas(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
@@ -38,7 +37,6 @@ class AddMusicaDialog extends StatelessWidget {
                 return ListTile(
                   title: Text(musica.nome),
                   onTap: () {
-                    // Quando o usuário clicar em uma música, adiciona à playlist
                     playlistController.addMusicaToPlaylist(
                         playlistId, musica.id);
                     Navigator.pop(context); // Fecha o diálogo

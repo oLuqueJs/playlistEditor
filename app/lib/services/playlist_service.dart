@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 class PlaylistService {
   static const String apiUrl = 'http://localhost:3000/playlists';
 
-  // Função para buscar todas as playlists
   Future<List<Playlist>> getPlaylists() async {
     try {
       final response = await http.get(Uri.parse(apiUrl));
@@ -21,7 +20,6 @@ class PlaylistService {
     }
   }
 
-  // Função para buscar todas as músicas
   Future<List<Musica>> getMusicas() async {
     try {
       final response =
@@ -37,7 +35,6 @@ class PlaylistService {
     }
   }
 
-  // Função para criar uma nova playlist
   Future<void> createPlaylist(Playlist playlist) async {
     try {
       final response = await http.post(
@@ -53,7 +50,6 @@ class PlaylistService {
     }
   }
 
-  // Função para atualizar a playlist no banco
   Future<void> updatePlaylist(Playlist playlist) async {
     try {
       final response = await http.put(
@@ -69,7 +65,6 @@ class PlaylistService {
     }
   }
 
-  // Função para excluir uma playlist
   Future<void> deletePlaylist(String playlistId) async {
     try {
       final response = await http.delete(

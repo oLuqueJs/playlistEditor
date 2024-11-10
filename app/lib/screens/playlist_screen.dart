@@ -16,7 +16,6 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
   @override
   void initState() {
     super.initState();
-    // Carregar playlists e músicas ao acessar a tela
     final playlistController =
         Provider.of<PlaylistController>(context, listen: false);
     playlistController.loadPlaylists(); // Carregar playlists
@@ -27,11 +26,9 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
   Widget build(BuildContext context) {
     final playlistController = Provider.of<PlaylistController>(context);
 
-    // Buscar a playlist pela ID
     final playlist = playlistController.playlists
         .firstWhere((p) => p.id == widget.playlistId);
 
-    // Obtenção das músicas da playlist usando o método getMusicasByIds
     final musicas = playlistController.getMusicasByIds(playlist.musicas);
 
     return Scaffold(
@@ -40,7 +37,6 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
       ),
       body: Column(
         children: [
-          // Exibir músicas da playlist
           Expanded(
             child: musicas.isEmpty
                 ? Center(child: Text('Nenhuma música na playlist'))
@@ -61,12 +57,10 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                     },
                   ),
           ),
-          // Botão para adicionar música
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
               onPressed: () {
-                // Exibir todas as músicas para adicionar à playlist
                 showDialog(
                   context: context,
                   builder: (context) {

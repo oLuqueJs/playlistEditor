@@ -9,16 +9,6 @@
       "id": "2",
       "nome": "Imagine",
       "link": "https://link.da.musica2"
-    },
-    {
-      "id": "4",
-      "nome": "qwewq",
-      "link": "qweqweq"
-    },
-    {
-      "id": "5",
-      "nome": "EU AMO MADONNA",
-      "link": "LINK"
     }
   ],
   "playlists": [
@@ -32,9 +22,11 @@
       "id": "1"
     },
     {
-      "id": "229d",
       "nome": "rtes",
-      "musicas": []
+      "musicas": [
+        "1"
+      ],
+      "id": "229d"
     }
   ]
 }
